@@ -19,6 +19,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Outlet, useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 // ICONS
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -118,19 +120,13 @@ export default function Teacher() {
     const [open, setOpen] = React.useState(false);
 
     const navArr = [
-        {link:"/", component:"Home", icon:HomeIcon},
+        { link: "/", component: "Home", icon: HomeIcon },
         { link: "/teacher/details", component: "Details", icon: TheatersIcon },
-        // { link: "/teacher/teachers", component: "Teachers", icon: GroupIcon },
-        // { link: "/teacher/application", component: "Application", icon: GradingIcon }
-        // { link: "/teacher/class", component: "Class", icon:FormatListNumberedIcon },
-        // { link: "/teacher/subject", component: "Subjects", icon: MenuBookIcon },
-        // { link: "/teacher/students", component: "Students", icon: GroupIcon },
-        // { link: "/teacher/teachers", component: "Teachers", icon: GroupIcon },
         { link: "/teacher/periods", component: "Periods", icon: CalendarMonthIcon },
         { link: "/teacher/attendance", component: "Attendance", icon: RecentActorsIcon },
-        { link: "/teacher/examinations", component: "Examinations", icon: ExplicitIcon},
-        {link:"/teacher/notice", component:"Notice", icon:CircleNotificationsIcon},
-        {link:"/logout", component:"Log Out", icon: LogoutIcon}
+        { link: "/teacher/examinations", component: "Examinations", icon: ExplicitIcon },
+        { link: "/teacher/notice", component: "Notice", icon: CircleNotificationsIcon },
+        { link: "/logout", component: "Log Out", icon: LogoutIcon }
     ]
     const navigate = useNavigate();
     const handleNavigation = (link) => {
@@ -147,7 +143,7 @@ export default function Teacher() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar  position="fixed" open={open}>
+            <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -175,58 +171,162 @@ export default function Teacher() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List sx={{height:"100%"}}>
-                    {navArr && navArr.map((navItem, index) => (
-                        <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={[
-                                    {
-                                        minHeight: 48,
-                                        px: 2.5,
-                                    },
-                                    open
-                                        ? {
-                                            justifyContent: 'initial',
-                                        }
-                                        : {
-                                            justifyContent: 'center',
-                                        },
-                                ]}
+                <List sx={{ height: "100%" }}>
+                    {navArr && navArr.map((navItem, index) => {
+                        if (navItem.component === "Log Out") {
+                            // Insert Assign Assignment icon button just before Log Out
+                            return [
+                                <ListItem disablePadding sx={{ display: 'block', mt: 2 }} key="assign-assignment">
+                                    <ListItemButton
+                                        sx={[
+                                            {
+                                                minHeight: 48,
+                                                px: 2.5,
+                                            },
+                                            open
+                                                ? {
+                                                    justifyContent: 'initial',
+                                                }
+                                                : {
+                                                    justifyContent: 'center',
+                                                },
+                                        ]}
+                                        onClick={() => handleNavigation('/teacher/assign-teacher')}
+                                    >
+                                        <ListItemIcon
+                                            sx={[
+                                                {
+                                                    minWidth: 0,
+                                                    justifyContent: 'center',
+                                                },
+                                                open
+                                                    ? {
+                                                        mr: 3,
+                                                    }
+                                                    : {
+                                                        mr: 'auto',
+                                                    },
+                                            ]}
+                                        >
+                                            <AssignmentTurnedInIcon color="primary" />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary="Assign Assignment"
+                                            sx={[
+                                                open
+                                                    ? {
+                                                        opacity: 1,
+                                                    }
+                                                    : {
+                                                        opacity: 0,
+                                                    },
+                                            ]}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>,
+                                <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                                    <ListItemButton
+                                        sx={[
+                                            {
+                                                minHeight: 48,
+                                                px: 2.5,
+                                            },
+                                            open
+                                                ? {
+                                                    justifyContent: 'initial',
+                                                }
+                                                : {
+                                                    justifyContent: 'center',
+                                                },
+                                        ]}
 
-                                onClick={() => { handleNavigation(navItem.link) }}
-                            >
-                                <ListItemIcon
+                                        onClick={() => { handleNavigation(navItem.link) }}
+                                    >
+                                        <ListItemIcon
+                                            sx={[
+                                                {
+                                                    minWidth: 0,
+                                                    justifyContent: 'center',
+                                                },
+                                                open
+                                                    ? {
+                                                        mr: 3,
+                                                    }
+                                                    : {
+                                                        mr: 'auto',
+                                                    },
+                                            ]}
+                                        >
+                                            <navItem.icon />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={navItem.component}
+                                            sx={[
+                                                open
+                                                    ? {
+                                                        opacity: 1,
+                                                    }
+                                                    : {
+                                                        opacity: 0,
+                                                    },
+                                            ]}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>
+                            ];
+                        }
+                        // Default nav item
+                        return (
+                            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
                                     sx={[
                                         {
-                                            minWidth: 0,
-                                            justifyContent: 'center',
+                                            minHeight: 48,
+                                            px: 2.5,
                                         },
                                         open
                                             ? {
-                                                mr: 3,
+                                                justifyContent: 'initial',
                                             }
                                             : {
-                                                mr: 'auto',
+                                                justifyContent: 'center',
                                             },
                                     ]}
+                                    onClick={() => { handleNavigation(navItem.link) }}
                                 >
-                                    <navItem.icon />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={navItem.component}
-                                    sx={[
-                                        open
-                                            ? {
-                                                opacity: 1,
-                                            }
-                                            : {
-                                                opacity: 0,
+                                    <ListItemIcon
+                                        sx={[
+                                            {
+                                                minWidth: 0,
+                                                justifyContent: 'center',
                                             },
-                                    ]}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                                            open
+                                                ? {
+                                                    mr: 3,
+                                                }
+                                                : {
+                                                    mr: 'auto',
+                                                },
+                                        ]}
+                                    >
+                                        <navItem.icon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={navItem.component}
+                                        sx={[
+                                            open
+                                                ? {
+                                                    opacity: 1,
+                                                }
+                                                : {
+                                                    opacity: 0,
+                                                },
+                                        ]}
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })}
                 </List>
                 <Divider />
 

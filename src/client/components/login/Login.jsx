@@ -47,13 +47,13 @@ export default function Login() {
             let url;
             let navUrl;
             if(loginType=="school_owner"){
-             url = `${baseUrl}/school/login`;
+             url = `${baseUrl}/api/school/login`;
              navUrl='/school'
             }else if(loginType=="teacher"){
-                url = `${baseUrl}/teacher/login`
+                url = `${baseUrl}/api/teacher/login`
                 navUrl='/teacher'
             }else if(loginType=="student"){
-                url = `${baseUrl}/student/login`
+                url = `${baseUrl}/api/student/login`
                 navUrl='/student'
             }
                 axios.post(url, {...values}).then(resp=>{    

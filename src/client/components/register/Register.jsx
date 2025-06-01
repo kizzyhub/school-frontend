@@ -55,7 +55,7 @@ const resetMessage  =()=>{
 
 
                
-                axios.post(`${baseUrl}/school/register`,fd).then(resp=>{
+                axios.post(`https://school-management-backend-cu0q.onrender.com/api/school/register`,fd).then(resp=>{
                     console.log("Response register submit")
                     setMessage(resp.data.message);
                     setType("success")

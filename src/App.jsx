@@ -44,7 +44,8 @@ import darkTheme from "./basic utility components/darkTheme";
 import lightTheme from "./basic utility components/lightTheme";
 import ThemeToggleButton from "./basic utility components/ThemeToggleButton";
 import { useContext, useEffect, useState } from "react";
-
+import AssignmentSubmissionPage from "./school/components/students/AssignmentSubmissionPage";
+import AssignTeacherPage from "./school/components/teachers/AssignTeacherPage";
 function App() {
   const { authenticated, login,themeDark } = useContext(AuthContext);
 
@@ -55,7 +56,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             
-          <Route path="school"  element={<ProtectedRoute allowedRoles={['SCHOOL']}><School/></ProtectedRoute>}>
+          <Route path="school"  element={<School/>}>
               <Route index element={<SchoolDashboard />} />
               <Route path="class" element={<Class />} />
               <Route path="class-details" element={<ClassDetails />} />
@@ -70,16 +71,17 @@ function App() {
               <Route path="notice" element={<NoticeSchool/>} />
             </Route>
   
-            <Route path="student"  element={<ProtectedRoute allowedRoles={['STUDENT']}><Student/></ProtectedRoute>}>
+            <Route path="student"  element={<Student/>}>
               <Route index element={<StudentDetails />}/>
               <Route path="student-details" element={<StudentDetails />} />
               <Route path="examinations" element={<StudentExaminations />} />
               <Route path='periods' element={<ScheduleStudent/>} />
               <Route path="attendance" element={<AttendanceStudent />} />
               <Route path="notice" element={<NoticeStudent/>} />
+              <Route path="submit-assignment" element={<AssignmentSubmissionPage />} />
             </Route>
   
-            <Route path="teacher"  element={<ProtectedRoute allowedRoles={['TEACHER']}><Teacher/></ProtectedRoute>}>
+            <Route path="teacher"  element={<Teacher/>}>
               <Route index element={<TeacherDetails />}/>
               <Route path="details" element={<TeacherDetails />} />
               <Route path="examinations" element={<TeacherExaminations />} />
@@ -87,8 +89,9 @@ function App() {
               {/* <Route path='sub-teach' element={<StudentSubjectTeacher/>} /> */}
               <Route path="attendance" element={<AttendanceTeacher />} />
               <Route path="notice" element={<NoticeTeacher/>} />
+              <Route path="assign-teacher" element={<AssignTeacherPage />} />
             </Route>
-  
+   
             <Route path="/" element={<Client />}>
               <Route index element={<Home />} />
               <Route path="home" element={<Home />} />
