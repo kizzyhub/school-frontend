@@ -46,13 +46,14 @@ import ThemeToggleButton from "./basic utility components/ThemeToggleButton";
 import { useContext, useEffect, useState } from "react";
 import AssignmentSubmissionPage from "./school/components/students/AssignmentSubmissionPage";
 import AssignTeacherPage from "./school/components/teachers/AssignTeacherPage";
+import { NoticeProvider } from "./context/NoticeContext";
 function App() {
-  const { authenticated, login,themeDark } = useContext(AuthContext);
+  const { authenticated, login, themeDark } = useContext(AuthContext);
 
-    return (
-      <>
-       <ThemeProvider theme={themeDark?darkTheme:lightTheme}>
-        <ThemeToggleButton  />
+  return (
+    <NoticeProvider>
+      <ThemeProvider theme={themeDark ? darkTheme : lightTheme}>
+        <ThemeToggleButton />
         <BrowserRouter>
           <Routes>
             
@@ -102,13 +103,10 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-        </ThemeProvider>
-      
-      
-      </>
-    );
-  
-  }
+      </ThemeProvider>
+    </NoticeProvider>
+  );
+}
 
 
 export default App;
